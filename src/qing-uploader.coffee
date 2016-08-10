@@ -41,7 +41,8 @@ class QingUploader extends QingModule
     $input.on 'change', (e) =>
       @upload $input[0].files
       @_initFileField $el
-    $input
+
+    @field = $input
 
   _bind: ->
     # upload the files in the queue
@@ -181,5 +182,6 @@ class QingUploader extends QingModule
     @queue.length = 0
     @cancel file for file in @files
     $(window).off '.uploader-' + @id
+    @field.remove() if @field
 
 module.exports = QingUploader

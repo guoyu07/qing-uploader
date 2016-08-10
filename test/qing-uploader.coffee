@@ -101,3 +101,20 @@ describe 'QingUploader', ->
     @uploader.readImageFile file, (img) ->
       expect(img).to.be.false
       done()
+
+  it 'should create input:file if el option is present', ->
+      $link = $('<a href="javascript:;" class="button-upload">Upload</a>')
+        .appendTo 'body'
+
+      uploader = new QingUploader
+        el: '.button-upload'
+        url: '/upload'
+
+      $input = $link.find('input:file')
+      expect($input.get(0)).to.be.equal(uploader.field.get(0))
+
+      $input.trigger 'change'
+      expect($input.get(0)).not.to.be.equal(uploader.field.get(0))
+
+      uploader.destroy()
+      $link.remove()

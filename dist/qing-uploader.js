@@ -74,7 +74,7 @@ QingUploader = (function(superClass) {
         return _this._initFileField($el);
       };
     })(this));
-    return $input;
+    return this.field = $input;
   };
 
   QingUploader.prototype._bind = function() {
@@ -282,7 +282,10 @@ QingUploader = (function(superClass) {
       file = ref[i];
       this.cancel(file);
     }
-    return $(window).off('.uploader-' + this.id);
+    $(window).off('.uploader-' + this.id);
+    if (this.field) {
+      return this.field.remove();
+    }
   };
 
   return QingUploader;
