@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>QingUploader</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link media="all" rel="stylesheet" type="text/css" href="dist/qing-uploader.css">
+	<style>
+		body {
+			margin: 20px;
+			font-size: 16px;
+		}
+
+		.button-upload {
+			display: inline-block;
+			color: #333333;
+			border: 1px solid #dfdfdf;
+			padding: 10px 15px;
+			text-decoration: none;
+			background: #f3f3f3;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.button-upload:hover {
+			background: #ffffff;
+		}
+
+		.button-upload input[type='file'] {
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 100px;
+			opacity: 0;
+		}
+
+		.file-list {
+			margin: 10px 0 0 0;
+		}
+
+		.file-list .file-item {
+			border: 1px solid #dfdfdf;
+			border-width: 1px 1px 0 1px;
+			padding: 10px 15px;
+			line-height: 20px;
+		}
+
+		.file-item .name {
+			color: #666666;
+		}
+
+		.file-item .percentage,
+		.file-item .size {
+			margin: 0 0 0 10px;
+			color: #999999;
+		}
+
+		.file-item .link-delete {
+			float: right;
+		}
+
+		.file-list .file-item:last-child {
+			border-bottom-width: 1px;
+		}
+
+
+	</style>
+
+	<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="node_modules/qing-module/dist/qing-module.js"></script>
+	<script type="text/javascript" src="node_modules/sinon/pkg/sinon.js"></script>
+	<script type="text/javascript" src="dist/qing-uploader.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var server = sinon.fakeServer.create();
+			server.autoRespond = true;
+			server.respondWith("POST", "/upload", [
+				200,
+				{"Content-Type": "application/json"},
+				'{"success": true}'
+			]);
+
+			var uploader = new QingUploader({
+				el: '.button-upload',
+				url: '/upload'
+			});
+
+			uploader.on('beforeupload', function(e, file) {
+				var $fileItem = $($('.template-file-item').html())
+				$fileItem.find('.name').text(file.name);
+				$fileItem.find('.size').text((file.size / 1024).toFixed(0) + 'K');
+				$fileItem.addClass('uploading')
+					.attr('data-file-id', file.id)
+					.appendTo('.file-list');
+				file.el = $fileItem;
+			});
+
+			uploader.on('uploadprogress', function(e, file, loaded, total) {
+				var percentage = ((loaded / total) * 100).toFixed(0) + '%';
+				file.el.find('.percentage').text(percentage);
+			});
+
+			uploader.on('uploadcomplete', function(e, file) {
+				file.el.removeClass('uploading')
+					.find('.percentage').remove();
+			});
+
+			$('.file-list').on('click', '.file-item .link-delete', function(e) {
+				var $link = $(this);
+				var $fileItem = $link.closest('.file-item');
+				if ($fileItem.hasClass('uploading')) {
+					var fileId = $fileItem.data('file-id');
+					uploader.cancel(fileId);
+				}
+				$fileItem.remove();
+			});
+		});
+	</script>
+
+</head>
+<body>
+	<a href="javascript:;" class="button-upload">Click to Upload File</a>
+	<div class="file-list"></div>
+	<script type="text/html" class="template-file-item">
+		<div class="file-item">
+			<span class="name"></span>
+			<span class="size"></span>
+			<span class="percentage">0%</span>
+			<a href="javascript:;" class="link-delete">X</a>
+		</div>
+	</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "qing-uploader",
+  "version": "1.0.0",
+  "description": "A simple upload component based on QingModule.",
+  "homepage": "http://mycolorway.github.io/qing-uploader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mycolorway/qing-uploader.git"
+  },
+  "author": "farthinker <farthinker@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mycolorway/qing-uploader/issues"
+  },
+  "main": "dist/qing-uploader.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "gulp test"
+  },
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "qing-module": "~1.0.0"
+  },
+  "devDependencies": {
+    "qing-build": "^0.x"
+  }
+}
