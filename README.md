@@ -39,29 +39,29 @@ var uploader = qing.uploader({
 
 ## Options
 
-__url__
+__url__ String, Required
 
-String, required, specify the upload API url on server.
+Specify the upload API url on server.
 
-__params__
+__params__ Hash
 
-Hash, specify extra params which will be sent to server with file data.
+Specify extra params which will be sent to server with file data.
 
-__fileKey__
+__fileKey__ String
 
-String, specify the name that server will use to get file data.
+Specify the name that server will use to get file data.
 
-__connectionCount__
+__connectionCount__ Number, Default: 3
 
-Number, 3 by default, specify max number of upload connection that can exist simultaneously.
+Specify max number of upload connection that can exist simultaneously.
 
-__el__
+__el__ Selector/Element/jQuery Object, Optional
 
-Selector/Element/jQuery Object, optional, specify the container where QingUploader will render a `input:file` field for you. The files selected by this `input:file` field will be uploaded automatically by QingUploader.
+Specify the container where QingUploader will render a `input:file` field for you. The files selected by this `input:file` field will be uploaded automatically by QingUploader.
 
-__allowMultiple__
+__allowMultiple__ Boolean, Default: true
 
-Boolean, true by default, specify whether the `input:file` field create by QingUploader can select multiple files.
+Specify whether the `input:file` field create by QingUploader can select multiple files.
 
 ## Methods
 
