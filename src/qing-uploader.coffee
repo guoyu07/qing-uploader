@@ -4,7 +4,8 @@ class QingUploader extends QingModule
 
   @opts:
     el: null
-    allowMultiple: true
+    multiple: true
+    fileFormat: null
     url: ''
     params: null
     fileKey: 'upload_file'
@@ -37,7 +38,8 @@ class QingUploader extends QingModule
     $input.remove() if $input.length > 0
 
     $input = $('<input type="file">').appendTo($el)
-    $input.attr('multiple', '') if @opts.allowMultiple
+    $input.attr('multiple', '') if @opts.multiple
+    $input.attr('accept', @opts.fileFormat) if @opts.fileFormat
     $input.on 'change', (e) =>
       @upload $input[0].files
       @_initFileField $el
