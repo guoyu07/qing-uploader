@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-uploader/license.html
  *
- * Date: 2016-08-10
+ * Date: 2016-12-27
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -84,7 +84,8 @@ QingUploader = (function(superClass) {
         if (_this.queue.length > 0 && _this.files.length < _this.opts.connectionCount) {
           return _this.upload(_this.queue.shift());
         } else if (_this.files.length === 0) {
-          return _this.uploading = false;
+          _this.uploading = false;
+          return _this.trigger('emptyqueue');
         }
       };
     })(this));
