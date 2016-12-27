@@ -54,6 +54,7 @@ class QingUploader extends QingModule
         @upload @queue.shift()
       else if @files.length == 0
         @uploading = false
+        @trigger 'emptyqueue'
 
     # confirm to leave page while uploading
     $(window).on 'beforeunload.uploader-' + @id, (e) =>
