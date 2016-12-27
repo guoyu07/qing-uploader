@@ -83,7 +83,8 @@
 
 			var uploader = new QingUploader({
 				el: '.button-upload',
-				url: '/upload'
+				url: '/upload',
+				fileFormat: 'application/pdf'
 			});
 
 			uploader.on('beforeupload', function(e, file) {

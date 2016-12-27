@@ -59,9 +59,13 @@ __el__  Selector/Element/jQuery Object, Optional
 
 Specify the container where QingUploader will render a `input:file` field for you. The files selected by this `input:file` field will be uploaded automatically by QingUploader.
 
-__allowMultiple__  Boolean, Default: true
+__multiple__  Boolean, Default: true
 
 Specify whether the `input:file` field create by QingUploader can select multiple files.
+
+__fileFormat_ String, Default: null
+
+Same as `accept` input attribute.
 
 ## Methods
 

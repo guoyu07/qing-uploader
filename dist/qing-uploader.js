@@ -28,7 +28,8 @@ QingUploader = (function(superClass) {
 
   QingUploader.opts = {
     el: null,
-    allowMultiple: true,
+    multiple: true,
+    fileFormat: null,
     url: '',
     params: null,
     fileKey: 'upload_file',
@@ -65,8 +66,11 @@ QingUploader = (function(superClass) {
       $input.remove();
     }
     $input = $('<input type="file">').appendTo($el);
-    if (this.opts.allowMultiple) {
+    if (this.opts.multiple) {
       $input.attr('multiple', '');
+    }
+    if (this.opts.fileFormat) {
+      $input.attr('accept', this.opts.fileFormat);
     }
     $input.on('change', (function(_this) {
       return function(e) {
